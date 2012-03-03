@@ -4,7 +4,7 @@
 		<div data-role="header" data-position="fixed" data-nobackbtn="true"  >
 			<a href="#phonelist" data-transition="flip" data-role="button" data-theme="b" data-icon="grid" >M2 #</a>
 			<h1><cfoutput>#session.username#</cfoutput></h1>
-			<a href="#compose" data-transition="slidedown" data-role="button" data-icon="gear" data-theme="b" >Add</a>
+			<a href="#compose" data-transition="slidedown" data-role="button" data-icon="plus" data-theme="b" >Add</a>
 		</div> <!--- /header --->
 		<div data-role="content" id="content" ></div> 
 		<cfinclude template="includes/pagefooter.cfm" >

@@ -54,9 +54,8 @@
 	});	
 
 	$("#searchUsers").live('pageshow', function (event) {
-		$.getJSON( "./api/index.cfm/users", function(data) { 
-			$('#SearchUsersContent').text = '';								   
-			$('#SearchUsersContent').append('<ul data-role="listview" data-filter="true"  data-theme="b" data-dividertheme="b"></ul>');
+		$.getJSON( "./api/index.cfm/users", function(data) { 			   
+			$('#SearchUsersContent').empty().append('<ul data-role="listview" data-filter="true"  data-theme="b" data-dividertheme="b"></ul>');
 			listItems = $('#SearchUsersContent').find('ul');
 			$.each(data.DATA, function(i,item){
 				listItems.append('<li><a href="viewUser.cfm?user='+item[0]+'" data-transition="slide" rel="external" class="ui-link-inherit">'+item[0]+'</a></li>');	
@@ -163,26 +162,18 @@
 				listItems.append('<li role="option" ><a href="viewUser.cfm?user='+item[0]+'" data-transition="slide" class="ui-link-inherit">'+item[0]+'</a></li>');
 			});
 			$('#allFollowed ul').listview();
-		});  			
+		});  	
+
+		$('#viewProfile').live('swipeleft' ,function(event){
+			$.mobile.changePage("#viewProfile1",{transition:"slide", reloadPage: false, changeHash: true });
+			event.preventDefault();
+		});
+
 	});
-	
-	$('#viewProfile').live('swipeleft swiperight',function(event){
-		alert('swipe');
-		if (event.type == "swipeleft") {
-			var prev = $("#prevlink",$.mobile.activePage);
-			if (prev.length) {
-				var prevurl = $(prev).attr("href");
-				console.log(prevurl);
-				$.mobile.changePage(prevurl);
-			}
-		}
-		if (event.type == "swiperight") {
-			var next = $("#nextlink",$.mobile.activePage);
-			if (next.length) {
-				var nexturl = $(next).attr("href");
-				console.log(nexturl);
-				$.mobile.changePage(nexturl);
-			}
-		}
-		event.preventDefault();
+
+	$('#viewProfile1').live('pagebeforecreate', function (event, ui) {
+		$('#viewProfile1').live('swiperight' ,function(event){
+			$.mobile.changePage("#viewProfile",{transition:"slide", reloadPage: false, changeHash: true });
+			event.preventDefault();
+		});
 	});

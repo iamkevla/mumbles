@@ -23,7 +23,7 @@
 	</div> <!--- /page --->
 <cfinclude template="includes/footer.cfm" >
 <script>
-		$("#submitLogin").click(function(){
+	$("#submitLogin").click(function(){
 		$.post(  "./api/index.cfm/users",
 				{  username: $("#username").val(), password: $("#password").val() } ,
 				function(data){
@@ -31,5 +31,5 @@
 				}
 			).error(function() { alert('Failed Verification'); });
 		return false;
-		}); 
+	}); 
 </script>	
