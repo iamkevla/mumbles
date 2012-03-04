@@ -39,7 +39,17 @@
 			$('#editcategory').val(data.CATEGORY);
 			$('#editmumble').val(data.MUMBLE);
 			$('#editcategory').selectmenu('refresh', true);
-		});  	
+		});  
+
+		$("#editSubmit").click(function(){
+		$.ajax({	url:  "./api/index.cfm/mumble/" + $("#editmumbleID").val(),
+					type: 'PUT',
+					data: {	mumble: $("#editmumble").val(), 
+				   			category: $("#editcategory").val() }
+
+			}).success(function(){$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });});
+			return false;
+		}); 	
 	});		
 	
 	$("#phonelist").live('pageshow', function (event) {
@@ -66,32 +76,37 @@
 
 
 						   
-	$("#followSubmit").click(function(){
-		//take checkbox and convert into list
-		var categoryList = ($("#GENERAL").attr('checked')) ? "GENERAL" : "";
-		categoryList += ($("#RELEASE").attr('checked')) ? ",RELEASE" : ""; 
-		categoryList += ($("#CHECKIN").attr('checked')) ? ",CHECKIN" : "";
 
-		//exec webservice to followUser
-		$.post( "./api/index.cfm/Followers", { 
-			username: $("#username").val(), 
-			followUser: $("#user").val(), 
-			categoryList: categoryList },
-			   function(data){
-					$.mobile.changePage("/mumbles/#viewProfile",{transition:"pop", reloadPage: true, changeHash: true });	
-			   });
-		return false;		
-	}); 
+
+	$("#viewUser").live('pageshow', function (event) {
+		var url = "./api/index.cfm/categories/" + $("#user").val();								  
+		$.getJSON( url, function(data) { 
+			if (data.CATEGORY != null ) {
+  				for (i=0; i < data.CATEGORY.split(',').length;i++){
+  					$("#"+data.CATEGORY.split(',')[i].toUpperCase()).attr("checked",true).checkboxradio("refresh");
+  				}
+  			}
+		});  
+
+		$("#followSubmit").click(function(){
+			//take checkbox and convert into list
+			var categoryList = ($("#GENERAL").attr('checked')) ? "GENERAL" : "";
+			categoryList += ($("#RELEASE").attr('checked')) ? ",RELEASE" : ""; 
+			categoryList += ($("#CHECKIN").attr('checked')) ? ",CHECKIN" : "";
+
+			//exec webservice to followUser
+			$.post( "./api/index.cfm/followers", { 
+				followUser: $("#user").val(), 
+				categoryList: categoryList },
+				   function(data){
+						$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });	
+				   });
+			return false;		
+		}); 
+
+	});		
 	
-	$("#editSubmit").click(function(){
-		$.ajax({	url:  "./api/index.cfm/mumble/" + $("#editmumbleID").val(),
-					type: 'PUT',
-					data: {	mumble: $("#editmumble").val(), 
-				   			category: $("#editcategory").val() }
 
-		}).success(function(){$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });});
-		return false;
-	}); 
 	
 	$("#replySubmit").click(function(){
 		$.post(  "./api/index.cfm/mumble/"+ $("#replymumbleID").val(),
@@ -105,16 +120,7 @@
 		return false;
 	}); 
 
-	$("#viewUser").live('pageshow', function (event) {
-		var url = "./api/index.cfm/categories/" + $("#user").val();								  
-		$.getJSON( url, function(data) { 
-			if (data.CATEGORY != null ) {
-  				for (i=0; i < data.CATEGORY.split(',').length;i++){
-  					$("#"+data.CATEGORY.split(',')[i].toUpperCase()).attr("checked",true).checkboxradio("refresh");
-  				}
-  			}
-		});  	
-	});		
+
 	
 	$('#compose').live('pageshow', function (event, ui) {
 		$("textarea").text = '';									 

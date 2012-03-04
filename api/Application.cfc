@@ -23,7 +23,7 @@
 			 
 				querySetCell(application.q, "ID", "2", 2);		 
 			  	querySetCell(application.q, "mumble", "Blah Blah blah...", 2);
-			 	querySetCell(application.q, "usercreated", "bo.peep", 2);
+			 	querySetCell(application.q, "usercreated", "bo_peep", 2);
 				querySetCell(application.q, "photo", "images/sheep.jpg", 2);
 				querySetCell(application.q, "dateCreated", "2012-02-23 7:00:56", 2);	
 				querySetCell(application.q, "category", "QUERY", 2);	 
@@ -48,13 +48,13 @@
 			    querySetCell(application.users,	"mail", "email@gmail.com", 1);
 			    querySetCell(application.users,	"photo", "images/ninja.jpg", 1);
 
-			 	querySetCell(application.users, "username", "bo.peep", 2);
+			 	querySetCell(application.users, "username", "bo_peep", 2);
 			    querySetCell(application.users, "password", "open", 2);
 			    querySetCell(application.users,	"mobile", "'0413788XXXX'", 2);
 			    querySetCell(application.users,	"mail", "email@gmail.com", 2);
 			    querySetCell(application.users,	"photo", "images/sheep.jpg", 2);
 
-			    querySetCell(application.users, "username", "big.bird", 3);
+			    querySetCell(application.users, "username", "big_bird", 3);
 			    querySetCell(application.users, "password", "sesame", 3);
 			    querySetCell(application.users,	"mobile", "'04136XXXX'", 3);
 			    querySetCell(application.users,	"mail", "email@gmail.com", 3);
@@ -63,16 +63,15 @@
 
 		   if( !isdefined('application.subscribers')){
 
-
 			   	application.subscribers = queryNew("username, sub, category");
 			    queryAddRow(application.subscribers, 2);
 				 
 				querySetCell(application.subscribers, "username", "krackas", 1);
-				querySetCell(application.subscribers, "sub", "bo.peep", 1);
+				querySetCell(application.subscribers, "sub", "bo_peep", 1);
 				querySetCell(application.subscribers, "category", "GENERAL,CHECKIN,RELEASE", 1);
 
-			 	querySetCell(application.subscribers, "username", "bo.peep", 2);
-			    querySetCell(application.subscribers, "sub", "big.bird", 2);
+			 	querySetCell(application.subscribers, "username", "bo_peep", 2);
+			    querySetCell(application.subscribers, "sub", "big_bird", 2);
 			    querySetCell(application.subscribers, "category", "GENERAL", 2);
 			   }
 	

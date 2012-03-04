@@ -8,7 +8,7 @@
 
 		<!--- use query object instead for demo --->
 		<cfquery name="q" dbtype="query" >
-			select * from  application.q where ID =#arguments.id# ; 	
+			select * from  application.q where ID = #arguments.id# ; 	
 		</cfquery>
 
 		<cfif q.recordCount gt 0>
@@ -54,9 +54,9 @@
 		    querySetCell( application.q, "photo", "#arguments.photo#", next);
 		    querySetCell( application.q, "dateCreated", "#now()#", next);
 		</cfscript>
+	
+		<cfreturn representationOf(next).withStatus(200) />
 
-		
-		<cfreturn noData().withStatus(200) />
 	</cffunction>
 
 </cfcomponent>

@@ -25,7 +25,7 @@
 		    querySetCell( application.subscribers, "category", "#arguments.categoryList#", next);
 		</cfscript>
 		
-		<cfreturn representationOf('').withStatus(200) />
+		<cfreturn representationOf(next).withStatus(200) />
 	</cffunction>
 
 </cfcomponent>

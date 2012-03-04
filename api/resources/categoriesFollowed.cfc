@@ -3,11 +3,19 @@
 	<cffunction name="get" access="public" output="false">
 		<cfargument name="username" type="string" required="true" />
 
-		<cfquery name ="q" dbtype="query" >
-			select category from application.subscribers where username = '#session.username#' and  sub = '#arguments.username#'
+		<cfset var q = ""/>
+		<cfset var col = "" />
+		<cfset var rtn = StructNew() />
+
+		<cfquery name ="q" dbtype="query"  >
+			select * from application.subscribers where  1 = 1
+			and sub = '<cfqueryPARAM value = "#session.username#">';
 		</cfquery>
-		
-		<cfif q.recordcount gt 0 >
+			<!---- and sub = '#arguments.username#' 	  --->
+		<cfif q.recordCount gt 0 >
+			<cfloop list="#q.ColumnList#" index="col">
+				<cfset rtn[col] = q[col][1] />
+			</cfloop>
 			<cfreturn representationOf(q).withStatus(200) />
 		<cfelse>
 			<cfreturn noData().withStatus(404) />
