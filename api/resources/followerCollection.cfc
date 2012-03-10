@@ -3,7 +3,7 @@
 	<cffunction name="get" access="public" output="false" >
 
 		<cfquery name ="qry" dbtype="query" >
-			select username from application.subscribers where sub = '#session.username#'
+			select username from application.subscribers where lower(sub) = '#lcase(session.username)#'
 		</cfquery>
 
 		<cfreturn representationOf(qry).withStatus(200) />
@@ -21,7 +21,7 @@
  			queryAddRow( application.subscribers, 1);
 
 		 	querySetCell( application.subscribers, "username", "#arguments.followUser#" , next);
-		    querySetCell( application.subscribers, "sub", "#session.username#" , next);
+		    querySetCell( application.subscribers, "sub", "#lcase(session.username)#" , next);
 		    querySetCell( application.subscribers, "category", "#arguments.categoryList#", next);
 		</cfscript>
 		

@@ -3,7 +3,7 @@
 	<cffunction name="get" access="public" output="false" >
  	
 		<cfquery name ="qry" dbtype="query" >
-			select sub from application.subscribers where username = '#session.username#'
+			select sub from application.subscribers where lower(username) = '#lcase(session.username)#'
 		</cfquery>
 
 		<cfreturn representationOf(qry).withStatus(200) />

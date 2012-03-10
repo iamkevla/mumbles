@@ -9,7 +9,7 @@
 
 		<cfquery name ="q" dbtype="query"  >
 			select * from application.subscribers where  1 = 1
-			and sub = '<cfqueryPARAM value = "#session.username#">';
+			and lower(sub) = '<cfqueryPARAM value = "#lcase(session.username)#">';
 		</cfquery>
 			<!---- and sub = '#arguments.username#' 	  --->
 		<cfif q.recordCount gt 0 >

@@ -48,7 +48,7 @@
 		 	querySetCell( application.q, "ID", next , next);
 		    querySetCell( application.q, "mumble", "#arguments.mumble#", next);
 		    querySetCell( application.q, "category", "Reply", next);
-		    querySetCell( application.q, "usercreated", "#session.username#", next);
+		    querySetCell( application.q, "usercreated", "#lcase(session.username)#", next);
 		    querySetCell( application.q, "photo", "#session.photo#", next);
 		    querySetCell( application.q, "dateCreated", "#now()#", next);
 		</cfscript>

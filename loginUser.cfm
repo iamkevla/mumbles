@@ -21,8 +21,7 @@
 			</fieldset>
 		</div> <!--- /content --->
 	</div> <!--- /page --->
-<cfinclude template="includes/footer.cfm" >
-<script>
+	<script>
 	$("#submitLogin").click(function(){
 		$.post(  "./api/index.cfm/users",
 				{  username: $("#username").val(), password: $("#password").val() } ,
@@ -32,4 +31,7 @@
 			).error(function() { alert('Failed Verification'); });
 		return false;
 	}); 
-</script>	
+</script>
+	</body>
+</html>
+	

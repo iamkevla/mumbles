@@ -34,7 +34,7 @@
 
 		 	querySetCell( application.q, "ID", next , next);
 		    querySetCell( application.q, "mumble", "#arguments.mumble#", next);
-		    querySetCell( application.q, "usercreated", "#arguments.username#", next);
+		    querySetCell( application.q, "usercreated", "#lcase(arguments.username)#", next);
 		    querySetCell( application.q, "photo", "#arguments.photo#", next);
 		    querySetCell( application.q, "dateCreated", "#now()#", next);
 		    querySetCell( application.q, "category", "#arguments.category#", next);

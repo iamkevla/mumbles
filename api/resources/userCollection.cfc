@@ -15,14 +15,14 @@
 		<cfargument name="password" type="string" required="true" >
 
 		<cfquery name="qVerify" dbtype="query" >
-			select * from application.users where username = '#arguments.username#' and password = '#arguments.password#'
+			select * from application.users where lower(username) = '#lcase(arguments.username)#' and password = '#arguments.password#'
 		</cfquery>
 		
 		<cfif qVerify.RecordCount >
 
 			<!--- This user has logged in correctly, change the value of the session.allowin value --->
 		    <cfset session.allowin = true >
-		   	<cfset session.username = arguments.username >
+		   	<cfset session.username = lcase(arguments.username) >
 			<cfset session.photo = '#qVerify.photo#'>
 			<cfset session.email = '#qVerify.mail#'>
 			
