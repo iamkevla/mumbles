@@ -38,9 +38,7 @@
 	
 	<cffunction name="post" access="public" output="false">
 		<cfargument name="id" type="numeric" required="true" />
-		<cfargument name="mumble" 	type="string" required="true" />
-		<cfargument name="username"	type="string" required="true" />
-		<cfargument name="photo"	type="string" required="true" />
+		<cfargument name="mumble" 	type="string" required="true" /> 
 
 		<cfscript>
 			var next = application.q.recordcount + 1;
@@ -50,8 +48,8 @@
 		 	querySetCell( application.q, "ID", next , next);
 		    querySetCell( application.q, "mumble", "#arguments.mumble#", next);
 		    querySetCell( application.q, "category", "Reply", next);
-		    querySetCell( application.q, "usercreated", "#arguments.username#", next);
-		    querySetCell( application.q, "photo", "#arguments.photo#", next);
+		    querySetCell( application.q, "usercreated", "#session.username#", next);
+		    querySetCell( application.q, "photo", "#session.photo#", next);
 		    querySetCell( application.q, "dateCreated", "#now()#", next);
 		</cfscript>
 	

@@ -8,7 +8,7 @@
 			$.each(data.DATA, function(i,item){
 					var html = '<img src="./'+item[3]+'"/>';
 					html += '<div class="ui-btn-text" >';
-					html += '<a href="viewMumble.cfm?mumbleID='+item[0]+'" rel="external" >';
+					html += '<a href="#view?mumbleID='+item[0]+'" rel="external" >';
 					html += '<p class="ui-li-aside" >'+item[4]+'</p>';
 					html += '<h5>@'+ item[2]+'</h5>';
 					html += '<p><strong>'+item[5]+'</strong></p>';
@@ -21,7 +21,11 @@
 	});		
 		
 	$("#view").live('pageshow', function (event) {
-		var url = "./api/index.cfm/mumble/"+$("#mumbleID").val();								  
+
+		//get mumbleID from url query string
+		mumbleID  = document.URL.substr(1).split('?')[1].split('=')[1]; 
+
+		var url = "./api/index.cfm/mumble/" + mumbleID;								  
 		$.getJSON( url, function(data) { 
 			var html = '<div class="ui-grid-b">';
 			html += '<div class="ui-block-a"><img src="'+data.PHOTO+'" height="36" width="36" ></div>';
@@ -34,7 +38,8 @@
 	});		
 
 	$("#edit").live('pageshow', function (event) {
-		var url = "./api/index.cfm/mumble/"+$("#mumbleID").val();								  
+
+		var url = "./api/index.cfm/mumble/" + mumbleID;								  
 		$.getJSON( url, function(data) { 
 			$('#editcategory').val(data.CATEGORY);
 			$('#editmumble').val(data.MUMBLE);
@@ -42,7 +47,7 @@
 		});  
 
 		$("#editSubmit").click(function(){
-		$.ajax({	url:  "./api/index.cfm/mumble/" + $("#editmumbleID").val(),
+		$.ajax({	url:  "./api/index.cfm/mumble/" + mumbleID,
 					type: 'PUT',
 					data: {	mumble: $("#editmumble").val(), 
 				   			category: $("#editcategory").val() }
@@ -68,7 +73,7 @@
 			$('#SearchUsersContent').empty().append('<ul data-role="listview" data-filter="true"  data-theme="b" data-dividertheme="b"></ul>');
 			listItems = $('#SearchUsersContent').find('ul');
 			$.each(data.DATA, function(i,item){
-				listItems.append('<li><a href="viewUser.cfm?user='+item[0]+'" data-transition="slide" rel="external" class="ui-link-inherit">'+item[0]+'</a></li>');	
+				listItems.append('<li><a href="#viewUser?user='+item[0]+'" data-transition="slide" rel="external" class="ui-link-inherit">'+item[0]+'</a></li>');	
 			});
 			$('#SearchUsersContent ul').listview();
 		});  
@@ -79,7 +84,11 @@
 
 
 	$("#viewUser").live('pageshow', function (event) {
-		var url = "./api/index.cfm/categories/" + $("#user").val();								  
+		//get user from url query string
+		var user  = document.URL.substr(1).split('?')[1].split('=')[1]; 
+		$('#hdrUser').empty().append(user);
+
+		var url = "./api/index.cfm/categories/" + user;								  
 		$.getJSON( url, function(data) { 
 			if (data.CATEGORY != null ) {
   				for (i=0; i < data.CATEGORY.split(',').length;i++){
@@ -96,7 +105,7 @@
 
 			//exec webservice to followUser
 			$.post( "./api/index.cfm/followers", { 
-				followUser: $("#user").val(), 
+				followUser: user, 
 				categoryList: categoryList },
 				   function(data){
 						$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });	
@@ -109,10 +118,8 @@
 
 	
 	$("#replySubmit").click(function(){
-		$.post(  "./api/index.cfm/mumble/"+ $("#replymumbleID").val(),
-			{  mumble: $("#replymumble").val(),
-				username: $("#username").val(),
-				 photo: $("#photo").val() },
+		$.post(  "./api/index.cfm/mumble/" + mumbleID,
+			{  mumble: $("#replymumble").val() },
 			   function(data){
 					$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });	
 			   }				   
@@ -155,7 +162,7 @@
 			$('#allFollowers').empty().append('<h3>Following ('+data.DATA.length+')</h3><ul data-role="listview" data-inset="true" data-theme="b" ></ul>');
 			listItems = $('#allFollowers').find('ul');
 			$.each(data.DATA, function(i,item){
-				listItems.append('<li role="option" ><a href="viewUser.cfm?user='+item[0]+'" data-transition="slide" class="ui-link-inherit">'+item[0]+'</a></li>');
+				listItems.append('<li role="option" ><a href="#viewUser?user='+item[0]+'" data-transition="slide" class="ui-link-inherit">'+item[0]+'</a></li>');
 			});
 			$('#allFollowers ul').listview();
 		});  		
@@ -165,7 +172,7 @@
 			$('#allFollowed').empty().append('<h3>Followed ('+data.DATA.length+')</h3><ul data-role="listview" data-inset="true" data-theme="b" >');
 			listItems = $('#allFollowed').find('ul');
 			$.each(data.DATA, function(i,item){
-				listItems.append('<li role="option" ><a href="viewUser.cfm?user='+item[0]+'" data-transition="slide" class="ui-link-inherit">'+item[0]+'</a></li>');
+				listItems.append('<li role="option" ><a href="#viewUser?user='+item[0]+'" data-transition="slide" class="ui-link-inherit">'+item[0]+'</a></li>');
 			});
 			$('#allFollowed ul').listview();
 		});  	

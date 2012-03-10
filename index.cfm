@@ -88,4 +88,95 @@
 		<cfinclude template="includes/pagefooter.cfm" >
 	</div> <!--- page --->
 
-<cfinclude template="includes/footer.cfm" >
+	<div data-role="page" data-theme="b" id="view" >
+		<div data-role="header" data-position="fixed" data-nobackbtn="true" id="viewHeader" >
+			<a href="#edit" data-transition="slidedown" data-role="button" data-icon="gear" data-theme="b" >Edit</a>
+			<h1>View Mumble</h1>
+			<a href="#reply" data-transition="slidedown" data-role="button" data-icon="gear" data-theme="b" >Reply</a>
+		</div> <!--- /header --->
+		
+		<div data-role="content" id="viewContent"></div> 
+		
+		<cfinclude template="includes/pagefooter.cfm" >
+	</div> <!--- /page --->
+
+	<div data-role="page" data-theme="b" id="edit" >
+		<div data-role="header" data-position="fixed" data-nobackbtn="true"  >
+			<h1>Edit</h1>
+			<a href="#view" data-transition="slidedown" data-role="button" data-icon="gear" data-theme="b" >Cancel</a>
+		</div> <!--- /header --->
+		
+		<div data-role="content">
+
+			<form>			
+				<div data-role="fieldcontain">
+					<label for="editcategory" >Category</label>
+					<select id="editcategory" name="category">
+						<option value="GENERAL" >General</option>
+						<option value="RELEASE" >Release</option>
+						<option value="CHECKIN" >Check-in</option>
+					</select>
+				</div>
+				<div data-role="fieldcontain">
+					<textarea id="editmumble" name="txtmumble" cols="30" rows="22" ></textarea>
+				</div>
+				
+				<input id="editSubmit" type="submit" value="update" data-theme="b"  />
+			</form>		
+		</div> <!--- /content --->
+		
+		<cfinclude template="includes/pagefooter.cfm" >
+	</div> <!--- page --->
+
+	<!-- Start of viewUser -->
+	<div data-role="page" data-theme="b" id="viewUser" >
+		<div data-role="header" data-position="fixed" >
+			<h1>User</h1>
+		</div>
+		<div data-role="content">	
+			<h4 id="hdrUser"></h4>
+			
+			<form>
+				
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<legend>Categories :</legend>
+						
+						<input type="checkbox" id="GENERAL"  />
+						<label for="GENERAL" >General</label>
+						<input type="checkbox" id="RELEASE"  />
+						<label for="RELEASE" >Release</label>
+						<input type="checkbox" id="CHECKIN"  />
+						<label for="CHECKIN" >Check-in</label>
+					</fieldset>
+				</div>
+				
+				<button data-theme="b" type="submit" id="followSubmit" >Save</button>
+				<h4 id="notification"></h4>	
+			</form>
+
+		</div><!--- /content --->
+		<cfinclude template="includes/pagefooter.cfm" >
+	</div><!--- /page --->
+
+	<div data-role="page" data-theme="b" id="reply" >
+		<div data-role="header" data-position="fixed" data-nobackbtn="true"  >
+			<h1>Reply</h1>
+			<a href="#view" data-transition="slidedown" data-role="button" data-icon="gear" data-theme="b" >Cancel</a>
+		</div> <!--- /header --->
+		
+		<div data-role="content">
+			<form>
+				<div data-role="fieldcontain">
+					<textarea id="replymumble" name="txtmumble" cols="30" rows="22" ></textarea>
+				</div>
+				
+				<input id="replySubmit" type="submit" value="reply" data-theme="b"  />
+			</form>	
+		</div> <!--- /content --->
+		
+		<cfinclude template="includes/pagefooter.cfm" >
+	</div> <!--- page --->
+
+	</body>
+</html>
