@@ -1,5 +1,5 @@
 <cfinclude template="includes/header.cfm">
-	<!--- main page which contains mumble timeline --->
+	<!--- main page which contains mumble stream --->
 	<div data-role="page" data-theme="b" id="viewMumbles" data-title="View Mumbles" >
 		<div data-role="header" data-position="fixed" data-nobackbtn="true"  >
 			<a href="#phonelist" data-transition="flip" data-role="button" data-theme="b" data-icon="grid" >M2 #</a>
@@ -17,8 +17,6 @@
 		</div> <!--- /header --->
 		<div data-role="content" >
 			<form>
-				<input type="hidden" id="username" value="<cfoutput>#session.username#</cfoutput>" />
-				<input type="hidden" id="photo" value="<cfoutput>#session.photo#</cfoutput>" />
 				<div data-role="fieldcontain">
 					<label for-"Category" >Category</label>
 					<select id="category" >
@@ -171,7 +169,7 @@
 					<textarea id="replymumble" name="txtmumble" cols="30" rows="22" ></textarea>
 				</div>
 				
-				<input id="replySubmit" type="submit" value="reply" data-theme="b"  />
+				<button id="replySubmit" type="submit" data-theme="b"  >Reply</button>
 			</form>	
 		</div> <!--- /content --->
 		

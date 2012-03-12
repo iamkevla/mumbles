@@ -23,7 +23,7 @@
 	$("#view").live('pageshow', function (event) {
 
 		//get mumbleID from url query string
-		mumbleID  = document.URL.substr(1).split('?')[1].split('=')[1]; 
+		mumbleID  = window.location.href.substr(1).split('?')[1].split('=')[1]; 
 
 		var url = "./api/index.cfm/mumble/" + mumbleID;								  
 		$.getJSON( url, function(data) { 
@@ -39,7 +39,7 @@
 
 	$("#edit").live('pageshow', function (event) {
 
-		var url = "./api/index.cfm/mumble/" + mumbleID;								  
+		var url = "./api/index.cfm/mumble/" + mumbleID.toString();								  
 		$.getJSON( url, function(data) { 
 			$('#editcategory').val(data.CATEGORY);
 			$('#editmumble').val(data.MUMBLE);
@@ -47,13 +47,11 @@
 		});  
 
 		$("#editSubmit").click(function(){
-		$.ajax({	url:  "./api/index.cfm/mumble/" + mumbleID,
+		$.ajax({	url:  "./api/index.cfm/mumble/" + mumbleID.toString(),
 					type: 'PUT',
 					data: {	mumble: $("#editmumble").val(), 
 				   			category: $("#editcategory").val() }
-
 			}).success(function(){$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });});
-			return false;
 		}); 	
 	});		
 	
@@ -85,7 +83,7 @@
 
 	$("#viewUser").live('pageshow', function (event) {
 		//get user from url query string
-		var user  = document.URL.substr(1).split('?')[1].split('=')[1]; 
+		var user  = window.location.href.substr(1).split('?')[1].split('=')[1]; 
 		$('#hdrUser').empty().append(user);
 
 		var url = "./api/index.cfm/categories/" + user;								  
@@ -108,25 +106,23 @@
 				followUser: user, 
 				categoryList: categoryList },
 				   function(data){
-						$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });	
-				   });
-			return false;		
+						$.mobile.changePage("/mumbles/", {transition:"pop", reloadPage: true, changeHash: true });	
+				   }
+			);
 		}); 
-
 	});		
 	
 
-	
-	$("#replySubmit").click(function(){
-		$.post(  "./api/index.cfm/mumble/" + mumbleID,
-			{  mumble: $("#replymumble").val() },
-			   function(data){
-					$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });	
-			   }				   
-		);
-		return false;
-	}); 
-
+	$("#reply").live('pageshow', function (event) {
+		$("#replySubmit").click(function(){
+			$.post(  "./api/index.cfm/mumble/" + mumbleID.toString(),
+					{  mumble: $("#replymumble").val() },
+				   function(data){
+						$.mobile.changePage("/mumbles/", {transition:"pop", reloadPage: true, changeHash: true });	
+				   }				   
+			);
+		}); 
+	});
 
 	
 	$('#compose').live('pageshow', function (event, ui) {
@@ -144,14 +140,11 @@
 					{  mumble: $("#txtmumble").val(), 
 					   category: $("#category").val(), 
 					   latitude: $("#lat_field").val(),
-					   longitude: $("#long_field").val(),
-					   username: $("#username").val(), 
-					   photo: $("#photo").val() },
+					   longitude: $("#long_field").val() },
 					   function(data) {
 							$.mobile.changePage("/mumbles/",{transition:"pop", reloadPage: true, changeHash: true });	
 					   } //function				   
 			); //post
-			return false;
 		}); 
 	});
 	

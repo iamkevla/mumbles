@@ -24,7 +24,7 @@
 	<cffunction name="put" access="public" output="false">
 		<cfargument name="id" type="numeric" required="true" />
 		<cfargument name="mumble" required="yes" type="string" >
-		<cfargument name="Category" required="yes" type="string"  >
+		<cfargument name="category" required="yes" type="string"  >
 		
 		<cfscript>
 			querySetCell( application.q, "mumble", "#arguments.mumble#", #arguments.id#);

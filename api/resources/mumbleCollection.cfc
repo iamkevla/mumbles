@@ -24,8 +24,7 @@
 		<cfargument name="category" type="string" required="false" default="General" />
 		<cfargument name="latitude" type="string" required="false" default="0" />
 		<cfargument name="longitude" type="string" required="false" default="0" />
-		<cfargument name="username" type="string" required="false" default="krackas" />
-		<cfargument name="photo"	type="string"  required="false"  default="images\ninja.jpg" />
+
 
 		<cfscript>
 			var next = application.q.recordcount + 1;
@@ -34,8 +33,8 @@
 
 		 	querySetCell( application.q, "ID", next , next);
 		    querySetCell( application.q, "mumble", "#arguments.mumble#", next);
-		    querySetCell( application.q, "usercreated", "#lcase(arguments.username)#", next);
-		    querySetCell( application.q, "photo", "#arguments.photo#", next);
+		    querySetCell( application.q, "usercreated", "#lcase(session.username)#", next);
+		    querySetCell( application.q, "photo", "#session.photo#", next);
 		    querySetCell( application.q, "dateCreated", "#now()#", next);
 		    querySetCell( application.q, "category", "#arguments.category#", next);
 		</cfscript>
