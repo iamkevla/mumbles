@@ -92,6 +92,7 @@
 			setDebugKey("debug");
 			setReloadKey("reload");
 			setReloadPassword("true");
+			enableCrossDomainAccess("true");
 
 			// Usage of this function is entirely optional. You may omit it if you want to use the default representation class.
 			// Change this to a custom class to change the default for the entire API instead of overriding for every individual response.
