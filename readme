@@ -4,7 +4,7 @@ Kevin Vlahos
 
 Public Domain
 
-Mmumbles is a webapp built to investigate jQuery Mobile. 
+Mumbles is a webapp built to investigate jQuery Mobile. 
 
 Mumbles utilises Coldfusion, jQuery Mobile and Taffy RESTful webservices.
 Its basically an webapp similar to Twitter where you enter mumbles (instead of tweets) and subscribe to mumbles.
